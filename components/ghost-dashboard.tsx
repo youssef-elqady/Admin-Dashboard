@@ -31,19 +31,22 @@ import {
 } from 'lucide-react'
 
 const navItems = [
-  { label: 'لوحة التحكم', icon: LayoutDashboard },
-  { label: 'الأجهزة والجلسات', icon: Gamepad2 },
-  { label: 'المدفوعات', icon: WalletCards },
-  { label: 'العملاء', icon: Users },
-  { label: 'المبيعات والمخزون', icon: ShoppingBag },
-  { label: 'الشيفتات والخزينة', icon: CircleDollarSign },
-  { label: 'التقارير', icon: FileText },
+  { label: 'نظرة عامة', icon: LayoutDashboard },
+  { label: 'الجلسات المباشرة', icon: Gamepad2 },
+  { label: 'الأجهزة والغرف', icon: Cpu },
+  { label: 'الفواتير والمبيعات', icon: WalletCards },
+  { label: 'المنتجات والمخزون', icon: ShoppingBag },
+  { label: 'التحليلات والتقارير', icon: FileText },
+  { label: 'الشيفتات والموظفون', icon: Users },
+  { label: 'الخزينة والتسويات', icon: CircleDollarSign },
+  { label: 'الرسائل والتسليم', icon: Bell },
+  { label: 'سجل العمليات', icon: Archive },
 ]
 
 const sessions = [
-  { room: 'غرفة VIP 01', customer: 'أحمد محمد', device: 'PS5 · FIFA 25', time: '01:42:18', amount: '180 ج.م', status: 'نشطة' },
-  { room: 'غرفة 03', customer: 'عمر خالد', device: 'PS5 · FC 25', time: '00:56:42', amount: '90 ج.م', status: 'نشطة' },
-  { room: 'كونسول 08', customer: 'محمود علي', device: 'PS4 · Tekken 8', time: '00:31:09', amount: '45 ج.م', status: 'نشطة' },
+  { room: 'Ultra VIP · Phantom', customer: 'جلسة مفتوحة', device: 'PS5 · Multiplayer', time: '01:42:18', amount: '180 ج.م', status: 'مفتوحة' },
+  { room: 'VIP · Haunt', customer: 'جلسة ثابتة · 02:00', device: 'PS5 · FC 25', time: '00:56:42', amount: '90 ج.م', status: 'نشطة' },
+  { room: 'PS4 · 05', customer: 'جلسة مفتوحة', device: 'Tekken 8 · Single', time: '00:31:09', amount: '45 ج.م', status: 'مفتوحة' },
 ]
 
 const transactions = [
@@ -56,7 +59,7 @@ const transactions = [
 function GhostMark({ compact = false }: { compact?: boolean }) {
   return (
     <div className="brand-mark" aria-label="GHOST">
-      <span className="ghost-symbol" aria-hidden="true"><span /></span>
+      <img className="ghost-logo" src="/ghost-mark.svg" alt="" aria-hidden="true" />
       {!compact && <span className="brand-name">GHOST</span>}
     </div>
   )
@@ -92,7 +95,7 @@ export default function GhostDashboard() {
   const [theme, setTheme] = useState<'light' | 'dark'>('dark')
   const [range, setRange] = useState('اليوم')
   const [mobileNav, setMobileNav] = useState(false)
-  const [activeNav, setActiveNav] = useState('لوحة التحكم')
+  const [activeNav, setActiveNav] = useState('نظرة عامة')
   const [now, setNow] = useState('')
 
   useEffect(() => {
@@ -116,7 +119,7 @@ export default function GhostDashboard() {
     <div className="app-shell" dir="rtl">
       <aside className={`sidebar ${mobileNav ? 'open' : ''}`}>
         <div className="sidebar-head"><GhostMark /><button className="icon-btn close-mobile" onClick={() => setMobileNav(false)} aria-label="إغلاق القائمة"><X size={20} /></button></div>
-        <div className="branch-switch"><span className="branch-dot" /><span><small>الفرع الحالي</small><b>GHOST · المعادي</b></span><ChevronDown size={15} /></div>
+        <div className="branch-switch"><span className="branch-dot" /><span><small>الفرع الحالي</small><b>GHOST · أبشواي</b></span><ChevronDown size={15} /></div>
         <nav aria-label="التنقل الرئيسي">
           <p className="nav-label">القائمة الرئيسية</p>
           {navItems.map(({ label, icon: Icon }) => <button key={label} className={`nav-item ${activeNav === label ? 'active' : ''}`} onClick={() => { setActiveNav(label); setMobileNav(false) }}><Icon size={18} /><span>{label}</span>{label === 'الأجهزة والجلسات' && <i>3</i>}</button>)}
@@ -131,7 +134,7 @@ export default function GhostDashboard() {
         <header className="topbar"><div className="topbar-start"><button className="icon-btn mobile-menu" onClick={() => setMobileNav(true)} aria-label="فتح القائمة"><Menu size={21} /></button><div><p className="eyebrow">{date}</p><h1>صباح الخير، محمد <span>✦</span></h1></div></div><div className="topbar-actions"><div className="time"><Clock3 size={16} /><span>{now || '08:45 م'}</span></div><button className="icon-btn" aria-label="البحث"><Search size={18} /></button><button className="icon-btn notification" aria-label="الإشعارات"><Bell size={18} /><i /></button><button className="theme-toggle" onClick={toggleTheme} aria-label="تبديل المظهر">{theme === 'dark' ? <Sun size={17} /> : <Moon size={17} />}</button></div></header>
 
         <div className="content-wrap">
-          <div className="page-heading"><div><h2>لوحة التحكم</h2><p>نظرة سريعة على أداء الفرع اليوم</p></div><button className="primary-btn"><CalendarDays size={17} /> اليوم <ChevronDown size={14} /></button></div>
+          <div className="page-heading"><div><h2>نظرة عامة</h2><p>مراقبة مباشرة لأداء GHOST · أبشواي اليوم</p></div><button className="primary-btn"><CalendarDays size={17} /> اليوم <ChevronDown size={14} /></button></div>
           <section className="stats-grid"><StatCard icon={CircleDollarSign} label="إجمالي الإيرادات اليوم" value="2,840 ج.م" detail="↑ 12.5% مقارنة بالأمس" /><StatCard icon={Gamepad2} label="الجلسات النشطة" value="06" detail="من أصل 24 جهاز" tone="sage" /><StatCard icon={Cpu} label="الأجهزة المتاحة" value="18" detail="جاهزة للحجز" tone="neutral" /><StatCard icon={Zap} label="المبيعات اليومية" value="620 ج.م" detail="23 طلب اليوم" tone="gold" /></section>
 
           <div className="main-grid"><section className="panel revenue-panel"><div className="panel-head"><div><h3>تحليل الإيرادات</h3><p>إجمالي الدخل خلال الفترة المحددة</p></div><div className="range-tabs">{['اليوم', 'هذا الأسبوع', 'هذا الشهر'].map((item) => <button key={item} className={range === item ? 'selected' : ''} onClick={() => setRange(item)}>{item}</button>)}</div></div><div className="revenue-total"><strong>2,840 <small>ج.م</small></strong><span className="positive">+12.5%</span></div><RevenueChart range={range} /></section><section className="panel shift-panel"><div className="panel-head"><div><h3>الشيفت الحالي</h3><p>وردية المساء · بدأت 04:00 م</p></div><span className="status-pill live"><span /> نشط الآن</span></div><div className="shift-user"><div className="avatar large">م</div><div><b>محمد أحمد</b><span>مسؤول الشيفت</span></div><MoreHorizontal size={18} /></div><div className="shift-stats"><div><span>إجمالي المبيعات</span><b>2,840 ج.م</b></div><div><span>عدد المعاملات</span><b>42</b></div><div><span>النقدية بالخزينة</span><b>8,450 ج.م</b></div></div><button className="outline-btn">عرض تفاصيل الشيفت <span>←</span></button></section></div>
